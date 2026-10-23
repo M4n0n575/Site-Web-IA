@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ReMobile — Smartphones reconditionnés garantis 24 mois</title>
+<style>
+  :root{
+    --encre:#0F2F33; --emeraude:#0B7A5A; --ambre:#F2B134;
+    --fond:#F7F7F4; --menthe:#EEF4F1; --succes:#187A45; --erreur:#B3261E;
+    --dark-fond:#0B1416; --dark-surface:#132023; --dark-cta:#3DDBA4;
+    --rayon:14px;
+    font-family:"Manrope","Segoe UI",system-ui,-apple-system,sans-serif;
+    color:var(--encre); background:var(--fond);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--fond);line-height:1.55}
+  button{font:inherit;cursor:pointer;border:none;background:none}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  h1{font-size:clamp(34px,5vw,56px);line-height:1.07;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:clamp(24px,3.5vw,34px);line-height:1.15;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:clamp(19px,2.5vw,28px);line-height:1.25;font-weight:700}
+
+  /* ---------- Bandeau + header ---------- */
+  .bandeau{background:var(--encre);color:#fff;text-align:center;font-size:13px;padding:8px 12px}
+  .bandeau strong{color:var(--dark-cta)}
+  header{background:#fff;border-bottom:1px solid #e7e7e2;position:sticky;top:0;z-index:50}
+  .head-in{display:flex;align-items:center;gap:20px;padding:14px 20px;max-width:1120px;margin:0 auto;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:24px;color:var(--emeraude);letter-spacing:-.02em}
+  .logo span{color:var(--ambre)}
+  .recherche{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--fond);
+    border:1px solid #ddd;border-radius:999px;padding:9px 16px;color:#888;font-size:14px}
+  .recherche input{border:none;background:none;outline:none;flex:1;font:inherit;color:var(--encre)}
+  nav{display:flex;gap:4px;flex-wrap:wrap}
+  nav a{padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;color:#4a5c5f}
+  nav a:hover{background:var(--menthe);color:var(--emeraude)}
+  .panier{display:flex;align-items:center;gap:8px;background:var(--encre);color:#fff;
+    border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px}
+  .panier .count{background:var(--ambre);color:var(--encre);border-radius:999px;
+    min-width:22px;height:22px;display:grid;place-items:center;font-size:12px}
+
+  /* ---------- Hero ---------- */
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center;
+    padding:56px 0;max-width:1120px;margin:0 auto}
+  .hero p.lead{font-size:17px;color:#4a5c5f;margin:18px 0 26px;max-width:46ch}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{border-radius:999px;padding:14px 26px;font-weight:700;font-size:15px;
+    display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primaire{background:var(--emeraude);color:#fff;box-shadow:0 6px 16px rgba(11,122,90,.25)}
+  .btn-secondaire{background:var(--menthe);color:var(--emeraude)}
+  .hero-visuel{background:linear-gradient(160deg,var(--menthe),#fff);border-radius:24px;
+    padding:34px;display:grid;place-items:center;border:1px solid #e2e8e5}
+
+  /* ---------- Trouver en 3 étapes ---------- */
+  .finder{background:#fff;border:1px solid #e7e7e2;border-radius:20px;padding:26px;
+    margin:-20px auto 0;max-width:1120px;box-shadow:0 10px 30px rgba(15,47,51,.06)}
+  .finder h3{margin-bottom:14px}
+  .finder-row{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px}
+  .finder select,.finder input{width:100%;padding:12px 14px;border-radius:10px;
+    border:1px solid #ccc;font:inherit;font-size:14px;background:var(--fond)}
+  .finder .btn{white-space:nowrap}
+
+  /* ---------- USP ---------- */
+  .usps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:56px auto;max-width:1120px}
+  .usp{background:#fff;border:1px solid #e7e7e2;border-radius:var(--rayon);padding:20px}
+  .usp .ico{width:42px;height:42px;border-radius:12px;background:var(--menthe);
+    display:grid;place-items:center;margin-bottom:12px}
+  .usp strong{display:block;font-size:15px}
+  .usp small{color:#5b6b6e;font-size:13px}
+
+  /* ---------- Produits ---------- */
+  .section{max-width:1120px;margin:0 auto 64px;padding:0 20px}
+  .section-tete{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+  .section-tete p{color:#5b6b6e;font-size:15px;max-width:52ch}
+  .grille{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .carte{background:#fff;border:1px solid #e7e7e2;border-radius:18px;overflow:hidden;
+    transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+  .carte:hover{box-shadow:0 12px 30px rgba(15,47,51,.1);transform:translateY(-3px)}
+  .carte .visuel{background:var(--menthe);display:grid;place-items:center;padding:22px;position:relative}
+  .badge-etat{position:absolute;top:12px;left:12px;font-size:11px;font-weight:800;letter-spacing:.06em;
+    padding:5px 10px;border-radius:999px;background:var(--encre);color:#fff}
+  .badge-etat.parfait{background:var(--succes)}
+  .badge-etat.tres-bon{background:var(--ambre);color:var(--encre)}
+  .badge-etat.correct{background:#8a8a83;color:#fff}
+  .carte .infos{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .carte h4{font-size:16px}
+  .carte .config{color:#5b6b6e;font-size:13px}
+  .prix-ligne{display:flex;align-items:baseline;gap:10px;margin-top:auto}
+  .prix{font-size:22px;font-weight:800;color:var(--emeraude)}
+  .prix-neuf{color:#9aa5a3;text-decoration:line-through;font-size:13px}
+  .eco{font-size:13px;color:var(--succes);font-weight:700}
+  .garantie-mini{font-size:12px;color:#5b6b6e;display:flex;align-items:center;gap:6px}
+
+  /* ---------- États ---------- */
+  .etats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .etat-carte{background:#fff;border:1px solid #e7e7e2;border-radius:18px;overflow:hidden}
+  .etat-carte .macro{background:linear-gradient(135deg,#dfe6e2,#c8d4cd);height:140px;position:relative;display:grid;place-items:center}
+  .etat-carte .macro em{font-size:11px;color:#5b6b6e;background:rgba(255,255,255,.75);padding:4px 10px;border-radius:999px;font-style:normal}
+  .etat-cordee-txt{padding:16px}
+  .etat-carte h4{font-size:17px;margin-bottom:4px}
+  .etat-carte p{color:#5b6b6e;font-size:14px}
+
+  /* ---------- CTA reprise ---------- */
+  .cta-reprise{background:var(--dark-fond);color:#fff;border-radius:24px;overflow:hidden;
+    display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:30px;padding:44px}
+  .cta-reprise h2{color:#fff}
+  .cta-reprise p{color:#a9b8b4;margin:12px 0 22px}
+  .cta-reprise .stat{color:var(--dark-cta);font-weight:800;font-size:34px}
+  .cta-reprise .visuel{display:grid;place-items:center}
+
+  /* ---------- Fiche produit ---------- */
+  .fil{font-size:13px;color:#5b6b6e;padding:18px 0}
+  .fiche{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start}
+  .galerie .principal{background:var(--menthe);border-radius:20px;display:grid;place-items:center;
+    padding:40px;border:1px solid #e2e8e5;transition:transform .25s}
+  .galerie .principal:hover{transform:scale(1.04)}
+  .vignettes{display:flex;gap:10px;margin-top:12px}
+  .vignettes button{background:var(--menthe);border:2px solid transparent;border-radius:10px;padding:8px}
+  .vignettes button.active{border-color:var(--emeraude)}
+  .galerie .note-zoom{font-size:12px;color:#5b6b6e;margin-top:8px}
+  .avis{display:flex;align-items:center;gap:8px;margin:10px 0 18px;font-size:14px}
+  .etoiles{color:var(--ambre);letter-spacing:2px}
+  .choix-bloc{margin-bottom:18px}
+  .choix-bloc legend,.choix-bloc .legende{font-weight:700;font-size:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .choix-bloc .legende a{font-weight:600;font-size:13px;color:var(--emeraude);text-decoration:underline}
+  .pastilles{display:flex;gap:8px;flex-wrap:wrap}
+  .pastille{border:2px solid #d9d9d3;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;background:#fff}
+  .pastille:hover{border-color:var(--emeraude)}
+  .pastille.active{border-color:var(--emeraude);background:var(--menthe);color:var(--emeraude)}
+  .option-batterie{display:flex;justify-content:space-between;align-items:center;background:#fff;
+    border:1px solid #e7e7e2;border-radius:12px;padding:12px 14px;font-size:13px;margin-top:8px}
+  .option-batterie strong{font-size:14px}
+  .toggle{width:46px;height:26px;border-radius:999px;background:#ccc;position:relative;transition:background .2s;flex-shrink:0}
+  .toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+  .toggle.on{background:var(--emeraude)}
+  .toggle.on::after{left:23px}
+  .resume-prix{background:#fff;border:1px solid #e7e7e2;border-radius:16px;padding:20px;margin-top:18px}
+  .resume-prix .ligne{display:flex;justify-content:space-between;font-size:14px;color:#5b6b6e;margin-bottom:6px}
+  .resume-prix .total{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:12px;border-top:1px dashed #ddd}
+  .resume-prix .total .prix{font-size:30px}
+  .quatre-x{font-size:13px;color:#5b6b6e;margin-top:6px}
+  .garanties{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px;font-size:13px;font-weight:600}
+  .garanties div{display:flex;align-items:center;gap:8px}
+  .reassurance-ico{width:26px;height:26px;border-radius:8px;background:var(--menthe);display:grid;place-items:center;flex-shrink:0}
+
+  .bloc-batterie{background:#fff;border:1px solid #e7e7e2;border-radius:18px;padding:24px;margin:44px auto;max-width:1120px}
+  .jauge{height:14px;background:var(--menthe);border-radius:999px;overflow:hidden;margin:14px 0 8px;max-width:420px}
+  .jauge .niveau{height:100%;width:88%;background:linear-gradient(90deg,var(--emeraude),#0ea37a);border-radius:999px}
+  .seuil{display:flex;justify-content:space-between;max-width:420px;font-size:12px;color:#5b6b6e}
+  .seuil b{color:var(--succes)}
+
+  .finance-reprise{background:var(--menthe);border:1px solid #d7e5de;border-radius:18px;
+    padding:24px;max-width:1120px;margin:0 auto 64px}
+  .finance-reprise .champ{margin-top:14px;background:#fff;border-radius:10px;border:1px solid #ccc;
+    padding:12px 14px;width:100%;max-width:380px;font:inherit}
+
+  /* ---------- Page offre reprise ---------- */
+  .offre{max-width:640px;margin:40px auto;background:#fff;border:1px solid #e7e7e2;
+    border-radius:22px;padding:36px;text-align:left}
+  .offre .etape{font-size:13px;font-weight:700;color:var(--emeraude);letter-spacing:.04em}
+  .offre .montant{font-size:56px;font-weight:800;color:var(--emeraude);margin:8px 0 4px}
+  .offre .ferme{font-size:13px;color:#5b6b6e}
+  .offre-choix{display:grid;gap:12px;margin:26px 0}
+  .offre-opt{border:2px solid #e0e0da;border-radius:14px;padding:16px;display:flex;
+    justify-content:space-between;align-items:center;cursor:pointer;text-align:left;width:100%;background:#fff}
+  .offre-opt.active{border-color:var(--emeraude);background:var(--menthe)}
+  .offre-opt strong{display:block;font-size:15px}
+  .offre-opt small{color:#5b6b6e;font-size:13px}
+  .offre-opt .valeur{font-size:20px;font-weight:800;color:var(--emeraude)}
+  .offre-note{font-size:13px;color:#5b6b6e;display:flex;gap:8px;align-items:center;margin-bottom:18px}
+  .btn-accepter{width:100%;justify-content:center;background:var(--emeraude);color:#fff;
+    border-radius:12px;padding:16px;font-size:16px;box-shadow:0 8px 20px rgba(11,122,90,.3)}
+  .recap-accept{background:var(--succes);color:#fff;border-radius:22px;padding:30px;text-align:center}
+
+  /* ---------- Panier ---------- */
+  .panier-page{max-width:640px;margin:40px auto}
+  .panier-ligne{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid #e7e7e2;
+    border-radius:14px;padding:14px;margin-bottom:12px}
+  .panier-ligne .mini-visuel{width:64px;height:64px;background:var(--menthe);border-radius:10px;display:grid;place-items:center}
+  .panier-ligne .suppr{color:var(--erreur);font-weight:700;font-size:13px;margin-left:auto}
+  .total-panier{display:flex;justify-content:space-between;font-size:20px;font-weight:800;margin:18px 0}
+
+  footer{background:var(--dark-fond);color:#a9b8b4;margin-top:56px;padding:36px 20px;font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+  @media (max-width:900px){
+    .hero,.fiche,.cta-reprise{grid-template-columns:1fr}
+    .finder-row{grid-template-columns:1fr}
+    .usps,.grille{grid-template-columns:repeat(2,1fr)}
+    .etats{grid-template-columns:1fr}
+  }
+  @media (max-width:540px){ .usps,.grille{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div class="bandeau">Garantie 24 mois · Livraison 24h · Atelier à Lyon</div>
+
+<header>
+  <div class="head-in">
+    <a href="#" class="logo" data-nav="accueil">Re<span>Mobile</span></a>
+    <div class="recherche">🔍<input id="q" type="search" placeholder="Rechercher un modèle, une marque..." /></div>
+    <nav>
+      <a href="#" data-nav="accueil">Acheter</a>
+      <a href="#" data-nav="reprise">Reprise</a>
+      <a href="#" data-nav="accueil">Comparer</a>
+      <a href="#" data-nav="accueil">Impact</a>
+      <a href="#" data-nav="accueil">Aide</a>
+    </nav>
+    <button class="panier" data-nav="panier">🛒 Panier <span class="count" id="panier-count">0</span></button>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo" style="color:var(--dark-cta)">Re<span style="color:var(--ambre)">Mobile</span></div>
+    <div>Garantie 24 mois · Livraison 24h · Atelier à Lyon</div>
+    <div>© 2026 ReMobile — Site de démonstration (HTML/CSS/JS, 100 % local)</div>
+  </div>
+</footer>
+
+<script>
+/* ============ Données ============ */
+const PRODUITS = [
+  {id:"iphone13", nom:"iPhone 13", config:"128 Go - Bleu",  etat:"TRÈS BON ÉTAT", classe:"tres-bon", prix:379, neuf:709,
+   couleurs:["#3f6ea8","#1c1c1e","#f2e8da"]},
+  {id:"galaxy23", nom:"Samsung Galaxy S23", config:"128 Go - Noir", etat:"PARFAIT ÉTAT", classe:"parfait", prix:359, neuf:859,
+   couleurs:["#1c1c1e","#c7b9a5","#86a9c9"]},
+  {id:"pixel8", nom:"Google Pixel 8", config:"128 Go - Gris", etat:"TRÈS BON ÉTAT", classe:"tres-bon", prix:329, neuf:599,
+   couleurs:["#6e6e73","#e6d9c5","#a8c5b8"]},
+  {id:"iphone12", nom:"iPhone 12", config:"64 Go - Blanc", etat:"ÉTAT CORRECT", classe:"correct", prix:259, neuf:549,
+   couleurs:["#f5f5f0","#1c1c1e","#c95a4d"]}
+];
+
+const PRIX_BASE = {etat:{"Parfait état":20,"Très bon état":0,"État correct":-40},
+                   capacite:{"128 Go":0,"256 Go":70}};
+const PRIX_NEUF = 709;
+
+/* Visuel téléphone en SVG inline */
+function telSVG(couleur, echelle=1){
+  return `<svg width="${110*echelle}" height="${210*echelle}" viewBox="0 0 110 210" aria-hidden="true">
+    <rect x="4" y="2" width="102" height="206" rx="18" fill="${couleur}" stroke="#0F2F33" stroke-opacity=".25"/>
+    <rect x="12" y="10" width="86" height="190" rx="12" fill="#fff" fill-opacity=".92"/>
+    <circle cx="55" cy="28" r="7" fill="#132023"/>
+    <rect cx="34" y="46" width="42" height="26" rx="6" fill="${couleur}" fill-opacity=".5"/>
+    <circle cx="55" cy="105" r="26" fill="none" stroke="${couleur}" stroke-width="5"/>
+    <circle cx="55" cy="105" r="10" fill="${couleur}" fill-opacity=".6"/>
+  </svg>`;
+}
+
+/* ============ Panier ============ */
+let panier = [];
+function majPanier(){
+  document.getElementById("panier-count").textContent = panier.length;
+}
+function ajouterAuPanier(nom, prix){
+  panier.push({nom, prix});
+  majPanier();
+  render("panier");
+}
+
+/* ============ Navigation ============ */
+const routes = {};
+function nav(e){
+  const lien = e.target.closest("[data-nav]");
+  if(lien){ e.preventDefault(); render(lien.dataset.nav, lien.dataset.produit); window.scrollTo(0,0); }
+}
+document.addEventListener("click", nav);
+
+/* ============ Pages ============ */
+routes.accueil = () => `
+  <section class="wrap hero">
+    <div>
+      <h1>Le smartphone qu'il vous faut, garanti 24&nbsp;mois.</h1>
+      <p class="lead">Neufs et reconditionnés, contrôlés en 45 points dans notre atelier de Lyon.
+      Transparent, du premier prix à la dernière rayure.</p>
+      <div class="hero-cta">
+        <a href="#best" class="btn btn-primaire">Acheter un appareil</a>
+        <button class="btn btn-secondaire" data-nav="reprise">Estimer ma reprise</button>
+      </div>
+    </div>
+    <div class="hero-visuel">${telSVG("#0B7A5A")}</div>
+  </section>
+
+  <section class="wrap finder">
+    <h3>Trouvez en 3 étapes</h3>
+    <div class="finder-row" id="finder">
+      <select id="f-marque"><option value="">Marque</option><option>Apple</option><option>Samsung</option><option>Google</option></select>
+      <select id="f-modele"><option value="">Modèle</option><option>iPhone 13</option><option>Galaxy S23</option><option>Pixel 8</option><option>iPhone 12</option></select>
+      <input id="f-budget" type="number" min="0" placeholder="Budget max (€)"/>
+      <button class="btn btn-primaire" id="f-go">Voir les offres</button>
+    </div>
+  </section>
+
+  <section class="usps wrap">
+    <div class="usp"><div class="ico">🔧</div><strong>45 points de contrôle</strong><small>Chaque appareil est testé en atelier.</small></div>
+    <div class="usp"><div class="ico">🛡️</div><strong>Garantie 24 mois</strong><small>Incluse sur tout le catalogue.</small></div>
+    <div class="usp"><div class="ico">🔋</div><strong>Batterie testée &gt; 85 %</strong><small>Ou batterie neuve certifiée (+39&nbsp;€).</small></div>
+    <div class="usp"><div class="ico">🇫🇷</div><strong>Atelier à Lyon</strong><small>Techniciens et SAV en France.</small></div>
+  </section>
+
+  <section class="section" id="best">
+    <div class="section-tete"><h2>Les plus vendus</h2></div>
+    <div class="grille">
+      ${PRODUITS.map(p=>`
+      <article class="carte">
+        <div class="visuel">
+          <span class="badge-etat ${p.classe}">${p.etat}</span>
+          ${telSVG(p.couleurs[0])}
+        </div>
+        <div class="infos">
+          <h4>${p.nom}</h4>
+          <div class="config">${p.config}</div>
+          <div class="prix-ligne"><span class="prix">${p.prix}&nbsp;€</span><span class="prix-neuf">${p.neuf}&nbsp;€</span></div>
+          <div class="eco">Vous économisez ${p.neuf-p.prix}&nbsp;€</div>
+          <div class="garantie-mini">🛡️ Garantie 24 mois incluse</div>
+          <button class="btn btn-secondaire" style="margin-top:10px;justify-content:center"
+                  data-nav="produit" data-produit="${p.id}">Voir l'offre</button>
+        </div>
+      </article>`).join("")}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tete">
+      <div><h2>Les états, expliqués en photos</h2>
+      <p>Pas de jargon : voyez ce qui est toléré avant d'acheter.</p></div>
+      <a href="#" class="btn btn-secondaire" data-nav="accueil">Voir le guide des états</a>
+    </div>
+    <div class="etats">
+      <div class="etat-carte"><div class="macro"><em>Macro réelle de rayures, lumière rasante</em></div>
+        <div class="etat-cordee-txt"><h4>Parfait état</h4><p>Aucune trace visible à 20&nbsp;cm.</p></div></div>
+      <div class="etat-carte"><div class="macro"><em>Macro réelle de rayures, lumière rasante</em></div>
+        <div class="etat-cordee-txt"><h4>Très bon état</h4><p>Micro-rayures visibles de près.</p></div></div>
+      <div class="etat-carte"><div class="macro"><em>Macro réelle de rayures, lumière rasante</em></div>
+        <div class="etat-cordee-txt"><h4>État correct</h4><p>Rayures légères, 100&nbsp;% fonctionnel.</p></div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="cta-reprise">
+      <div>
+        <h2>Revendez votre ancien téléphone</h2>
+        <p>Retournez votre appareil, étiquette d'envoi gratuite incluse. Offre ferme, sans mauvaise surprise.</p>
+        <div><span class="stat">85&nbsp;%</span> <span style="color:#a9b8b4">des reprises achetées en bon état</span></div>
+        <br/>
+        <button class="btn" style="background:var(--dark-cta);color:var(--dark-fond)" data-nav="reprise">Estimer ma reprise</button>
+      </div>
+      <div class="visuel">${telSVG("#3DDBA4")}</div>
+    </div>
+  </section>`;
+
+routes.produit = (id="iphone13") => `
+  <div class="wrap">
+    <div class="fil">Accueil &gt; Smartphones &gt; iPhone 13</div>
+    <div class="fiche">
+      <div class="galerie">
+        <div class="principal" id="g-principal">${telSVG("#3f6ea8",1.4)}</div>
+        <div class="vignettes">
+          <button class="active" data-coul="#3f6ea8">${telSVG("#3f6ea8",.35)}</button>
+          <button data-coul="#1c1c1e">${telSVG("#1c1c1e",.35)}</button>
+          <button data-coul="#f2e8da">${telSVG("#f2e8da",.35)}</button>
+        </div>
+        <p class="note-zoom">Photo réelle de l'exact état — zoom au survol</p>
+      </div>
+      <div>
+        <h1 style="font-size:clamp(28px,4vw,40px)">iPhone 13 128&nbsp;Go</h1>
+        <div class="avis"><span class="etoiles">★★★★</span><span><b>4,7/5</b> · 2&nbsp;300+ avis vérifiés</span></div>
+
+        <fieldset class="choix-bloc"><div class="legende">État <a href="#" data-nav="accueil">Guide des états</a></div>
+          <div class="pastilles" id="sel-etat">
+            <button class="pastille" data-val="Parfait état">Parfait état</button>
+            <button class="pastille active" data-val="Très bon état">Très bon état</button>
+            <button class="pastille" data-val="État correct">État correct</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="choix-bloc"><div class="legende">Capacité</div>
+          <div class="pastilles" id="sel-capacite">
+            <button class="pastille active" data-val="128 Go">128 Go</button>
+            <button class="pastille" data-val="256 Go">256 Go</button>
+          </div>
+        </fieldset>
+
+        <div class="option-batterie">
+          <div><strong>Batterie 100&nbsp;% neuve certifiée</strong><br/>
+          <small>Sinon testée à plus de 85&nbsp;%</small></div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <b id="batt-prix" style="color:var(--emeraude)">+39&nbsp;€</b>
+            <div class="toggle" id="batt-toggle" role="switch" aria-checked="false" tabindex="0"></div>
+          </div>
+        </div>
+
+        <div class="resume-prix">
+          <div class="ligne"><span>Neuf</span><span style="text-decoration:line-through">${PRIX_NEUF}&nbsp;€</span></div>
+          <div class="ligne"><span>Économie</span><b style="color:var(--succes)" id="p-economie"></b></div>
+          <div class="total"><span style="font-weight:700">Total</span><span class="prix" id="p-total"></span></div>
+          <div class="quatre-x" id="p-4x"></div>
+          <button class="btn btn-primaire" id="btn-panier" style="width:100%;justify-content:center;margin-top:14px">
+            Ajouter au panier
+          </button>
+          <div class="garanties">
+            <div><span class="reassurance-ico">🛡️</span>Garantie 24 mois</div>
+            <div><span class="reassurance-ico">🚚</span>Livraison 24h</div>
+            <div><span class="reassurance-ico">↩️</span>Retours 30 jours</div>
+            <div><span class="reassurance-ico">🔒</span>Paiement sécurisé</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloc-batterie wrap">
+      <h2>Santé de la batterie</h2>
+      <div class="jauge"><div class="niveau"></div></div>
+      <div class="seuil"><span><b>88&nbsp;%</b> mesurés à l'atelier</span><span>Seuil minimum : 85&nbsp;%</span></div>
+      <p style="font-size:13px;color:#5b6b6e;margin-top:8px">Exemple illustratif.</p>
+    </div>
+  </div>
+
+  <div class="finance-reprise wrap">
+    <h3>Financez cet achat par la reprise</h3>
+    <p style="color:#4a5c5f;font-size:14px;margin-top:6px">Revendez votre ancien téléphone en 2 minutes.</p>
+    <button class="btn btn-secondaire" style="margin-top:14px" data-nav="reprise">Votre modèle actuel →</button>
+  </div>`;
+
+routes.reprise = () => `
+  <section class="offre">
+    <div class="etape">Étape 4 sur 4 · Offre ferme</div>
+    <h1 style="font-size:clamp(26px,4vw,36px);margin-top:8px">Votre offre pour l'iPhone 12 128&nbsp;Go</h1>
+    <div class="montant" id="offre-montant">214&nbsp;€</div>
+    <p class="ferme">Offre ferme, sans mauvaise surprise (illustratif)</p>
+    <div class="offre-choix" id="offre-choix">
+      <button class="offre-opt active" data-mult="1" data-total="214">
+        <div><strong>Virement bancaire</strong><small>214&nbsp;€ sous 5 jours après réception</small></div>
+        <span class="valeur">214&nbsp;€</span>
+      </button>
+      <button class="offre-opt" data-mult="1.15" data-total="246">
+        <div><strong>Bon d'achat bonifié +15&nbsp;%</strong><small>246&nbsp;€ à utiliser sur ReMobile</small></div>
+        <span class="valeur">246&nbsp;€</span>
+      </button>
+    </div>
+    <div class="offre-note">📦 Étiquette d'envoi gratuite incluse.</div>
+    <button class="btn btn-accepter" id="btn-accepter">Accepter l'offre</button>
+    <div id="offre-confirm" style="display:none;margin-top:22px">
+      <div class="recap-accept"><strong>Offre acceptée&nbsp;! 🎉</strong><br/>
+      <span style="font-size:14px">Votre étiquette d'envoi vous a été préparée (démo locale).</span></div>
+    </div>
+  </section>`;
+
+routes.panier = () => {
+  if(!panier.length) return `
+    <section class="panier-page wrap" style="text-align:center">
+      <h2>Votre panier est vide</h2>
+      <p style="color:#5b6b6e;margin:12px 0 20px">Découvrez nos appareils garantis 24 mois.</p>
+      <button class="btn btn-primaire" data-nav="accueil">Voir les offres</button>
+    </section>`;
+  const total = panier.reduce((s,p)=>s+p.prix,0);
+  return `
+    <section class="panier-page wrap">
+      <h2>Mon panier (${panier.length})</h2><br/>
+      ${panier.map((p,i)=>`
+        <div class="panier-ligne">
+          <div class="mini-visuel">${telSVG("#0B7A5A",.4)}</div>
+          <div><strong>${p.nom}</strong><br/><span style="font-size:13px;color:#5b6b6e">Garantie 24 mois incluse</span></div>
+          <b style="color:var(--emeraude)">${p.prix}&nbsp;€</b>
+          <button class="suppr" data-suppr="${i}">Retirer</button>
+        </div>`).join("")}
+      <div class="total-panier"><span>Total</span><span style="color:var(--emeraude)">${total}&nbsp;€</span></div>
+      <button class="btn btn-primaire" style="width:100%;justify-content:center">Commander (démo)</button>
+    </section>`;
+};
+
+/* ============ Interactions fiche produit ============ */
+function initProduit(){
+  const etat = {v:"Très bon état"}, capacite = {v:"128 Go"}, batterie = {on:false};
+
+  const calc = () => {
+    let p = PRIX_BASE.etat[etat.v] + PRIX_BASE.capacite[capacite.v] + 379;
+    if(batterie.on) p += 39;
+    document.getElementById("p-total").textContent = p + " €";
+    document.getElementById("p-economie").textContent = "Vous économisez " + (PRIX_NEUF - p) + " €";
+    document.getElementById("p-4x").textContent = "Payez en 4x sans frais : 4 × " + (p/4).toFixed(2).replace(".",",") + " €";
+    document.getElementById("batt-prix").textContent = batterie.on ? "Incluse" : "+39 €";
+  };
+
+  const brancher = (idSel, cible) => {
+    const zone = document.getElementById(idSel);
+    zone.addEventListener("click", e => {
+      const b = e.target.closest(".pastille"); if(!b) return;
+      zone.querySelectorAll(".pastille").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      cible.v = b.dataset.val; calc();
+    });
+  };
+  brancher("sel-etat", etat);
+  brancher("sel-capacite", capacite);
+
+  const tg = document.getElementById("batt-toggle");
+  tg.addEventListener("click", () => {
+    batterie.on = !batterie.on;
+    tg.classList.toggle("on", batterie.on);
+    tg.setAttribute("aria-checked", batterie.on);
+    calc();
+  });
+
+  document.querySelectorAll(".vignettes button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".vignettes button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("g-principal").innerHTML = telSVG(b.dataset.coul, 1.4);
+  }));
+
+  document.getElementById("btn-panier").addEventListener("click", () => {
+    ajouterAuPanier(`iPhone 13 ${capacite.v} · ${etat.v}${batterie.on?" · batterie neuve":""}`,
+                    etat.v==="Parfait état"?439:etat.v==="État correct"?339:379 + PRIX_BASE.capacite[capacite.v] + (batterie.on?39:0));
+  });
+
+  calc();
+}
+
+function initReprise(){
+  document.getElementById("offre-choix").addEventListener("click", e => {
+    const b = e.target.closest(".offre-opt"); if(!b) return;
+    document.querySelectorAll(".offre-opt").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("offre-montant").textContent = b.dataset.total + " €";
+  });
+  document.getElementById("btn-accepter").addEventListener("click", () => {
+    document.getElementById("offre-confirm").style.display = "block";
+  });
+}
+
+/* ============ Render ============ */
+function render(page="accueil", arg){
+  const app = document.getElementById("app");
+  app.innerHTML = routes[page] ? routes[page](arg) : routes.accueil();
+  if(page==="produit") initProduit();
+  if(page==="reprise") initReprise();
+}
+
+/* Recherche → fiche produit (démo) */
+document.getElementById("q").addEventListener("keydown", e => {
+  if(e.key!=="Enter") return;
+  const v = e.target.value.toLowerCase();
+  if(v.includes("s23")||v.includes("samsung")) render("produit","galaxy23");
+  else if(v.includes("pixel")) render("produit","pixel8");
+  else render("produit","iphone13");
+  window.scrollTo(0,0);
+});
+
+/* Bouton "Voir les offres" du finder → best-sellers */
+document.addEventListener("click", e => {
+  if(e.target.id==="f-go"){
+    document.getElementById("best")?.scrollIntoView({behavior:"smooth"});
+  }
+});
+
+render("accueil");
+majPanier();
+</script>
+</body>
+</html>
