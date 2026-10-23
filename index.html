@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReMobile – Smartphones neufs et reconditionnés, garantis 24 mois</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<div class="topbar">Garantie 24 mois · Livraison 24h · Atelier à Lyon</div>
+
+<header class="header">
+  <div class="wrap bar">
+    <a class="logo" href="#/">ReMobile</a>
+    <input id="search" class="search" type="search" placeholder="Rechercher un modèle, une marque…" aria-label="Rechercher un modèle ou une marque">
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <a href="#/">Acheter</a>
+      <a href="#/reprise">Reprise</a>
+      <a href="#/comparer">Comparer</a>
+      <a href="#/impact">Impact</a>
+      <a href="#/aide">Aide</a>
+      <button class="icon" id="theme" aria-label="Basculer le mode sombre">◐</button>
+      <a href="#/panier" class="cart">Panier (<span id="cartCount">0</span>)</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ACCUEIL -->
+<section data-view="home">
+  <div class="wrap hero">
+    <div>
+      <h1>Le smartphone qu’il vous faut, garanti 24 mois.</h1>
+      <p class="lead">Neufs et reconditionnés, contrôlés en 45 points dans notre atelier de Lyon. Transparent, du premier prix à la dernière rayure.</p>
+      <div class="row">
+        <a class="btn" href="#/produit/iphone13">Acheter un appareil</a>
+        <a class="btn ghost" href="#/reprise">Estimer ma reprise</a>
+      </div>
+    </div>
+    <div class="visual" role="img" aria-label="Smartphone sur fond neutre"><div class="phone"></div></div>
+  </div>
+
+  <div class="wrap">
+    <form class="picker" id="picker">
+      <strong>Trouvez en 3 étapes</strong>
+      <select id="pBrand" aria-label="Marque"><option value="">Marque</option></select>
+      <select id="pModel" aria-label="Modèle" disabled><option value="">Modèle</option></select>
+      <select id="pBudget" aria-label="Budget max">
+        <option value="">Budget max</option><option>250</option><option>350</option><option>400</option><option>500</option>
+      </select>
+      <button class="btn" type="submit">Voir les offres</button>
+    </form>
+
+    <ul class="trust">
+      <li><b>45 points de contrôle</b>Chaque appareil est testé en atelier.</li>
+      <li><b>Garantie 24 mois</b>Incluse sur tout le catalogue.</li>
+      <li><b>Batterie testée &gt; 85 %</b>Ou batterie neuve certifiée (+39 €).</li>
+      <li><b>Atelier à Lyon</b>Techniciens et SAV en France.</li>
+    </ul>
+
+    <h2 id="best">Les plus vendus</h2>
+    <p class="muted" id="resultInfo" aria-live="polite"></p>
+    <div class="grid" id="products"></div>
+
+    <h2>Les états, expliqués en photos</h2>
+    <p class="muted">Pas de jargon : voyez ce qui est toléré avant d’acheter. <a href="#/guide">Voir le guide des états</a></p>
+    <div class="grades">
+      <article class="card"><div class="ph">Macro réelle, lumière rasante</div><h3>Parfait état</h3><p class="muted">Aucune trace visible à 20 cm.</p></article>
+      <article class="card"><div class="ph">Macro réelle, lumière rasante</div><h3>Très bon état</h3><p class="muted">Micro-rayures visibles de près.</p></article>
+      <article class="card"><div class="ph">Macro réelle, lumière rasante</div><h3>État correct</h3><p class="muted">Rayures légères, 100 % fonctionnel.</p></article>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <aside class="cta">
+      <span class="badge amber">+15 % EN BON D’ACHAT</span>
+      <h2>Revendez votre ancien téléphone</h2>
+      <p>Offre ferme en 2 minutes. Virement ou bon d’achat bonifié.</p>
+      <a class="btn mint" href="#/reprise">Estimer ma reprise</a>
+    </aside>
+  </div>
+</section>
+
+<!-- FICHE PRODUIT -->
+<section data-view="produit" hidden>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><a href="#/">Accueil</a> › Smartphones › <span id="crumb"></span></nav>
+    <div class="pdp">
+      <div class="gallery">
+        <div class="thumbs"><span>Vignettes</span></div>
+        <div class="ph big" id="pdpImg">Photo réelle de l’exact état</div>
+      </div>
+      <div class="buy card">
+        <h1 id="pdpTitle" class="h2"></h1>
+        <p class="muted">★ 4,7/5 · 2 300+ avis vérifiés</p>
+        <fieldset><legend>État</legend>
+          <div class="chips" id="gradeChips"></div>
+          <a href="#/guide">Guide des états</a>
+        </fieldset>
+        <fieldset><legend>Capacité</legend><div class="chips" id="capChips"></div></fieldset>
+        <label class="battery">
+          <input type="checkbox" id="newBat">
+          <span><b>Batterie 100 % neuve certifiée</b><br>Sinon testée à plus de 85 %</span>
+          <b>+39 €</b>
+        </label>
+        <p class="price"><span id="price"></span> <small class="muted" id="saving"></small></p>
+        <p class="small" id="split"></p>
+        <button class="btn block" id="add">Ajouter au panier</button>
+        <p class="assure"><span>Garantie 24 mois</span><span>Livraison 24h</span><span>Retours 30 jours</span><span>Paiement sécurisé</span></p>
+      </div>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>Santé de la batterie</h3>
+        <div class="bar-bg"><div class="bar-fill" id="batFill"></div></div>
+        <p class="muted small" id="batTxt"></p>
+      </div>
+      <div class="card mint-bg">
+        <h3>Financez cet achat par la reprise</h3>
+        <p class="muted">Revendez votre ancien téléphone en 2 minutes.</p>
+        <select id="tradeSel" aria-label="Votre modèle actuel"><option value="">Votre modèle actuel</option></select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPRISE -->
+<section data-view="reprise" hidden>
+  <div class="wrap narrow">
+    <p class="muted" id="stepLbl"></p>
+    <div class="progress"><div id="stepBar"></div></div>
+    <h1 class="h2" id="stepTitle"></h1>
+    <div id="stepBody"></div>
+    <div class="row">
+      <button class="btn ghost" id="prev">Retour</button>
+      <button class="btn" id="next">Continuer</button>
+    </div>
+  </div>
+</section>
+
+<!-- PANIER -->
+<section data-view="panier" hidden>
+  <div class="wrap narrow">
+    <h1 class="h2">Votre panier</h1>
+    <div id="cartList"></div>
+  </div>
+</section>
+
+<!-- PAGES SIMPLES -->
+<section data-view="info" hidden>
+  <div class="wrap narrow"><h1 class="h2" id="infoT"></h1><div id="infoB"></div></div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">© 2026 ReMobile · Atelier et SAV à Lyon · Retours 30 jours · Garantie 24 mois</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
